@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Error from './Error';
 import Acierto from './Acierto';
 
-const Formulario = ({pacientes, setPacientes, paciente}) => {
+const Formulario = ({pacientes, setPacientes, paciente, setPaciente}) => {
   const [nombre, setNombre] = useState(''); 
   const [propietario, sePropietario] = useState(''); 
   const [mail, setMail] = useState(''); 
@@ -36,12 +36,6 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
     } else {
       setError(false);
       setEnviado(true);
-      setNombre('');
-      sePropietario('');
-      setMail('');
-      setAlta('');
-      setNumero('');
-      setsintomas('');
       const ObjetoPaciente = {
         nombre,
         propietario,
@@ -51,13 +45,22 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
         sintomas,
       }
       if (paciente.id) {
+        console.log("hola")
         ObjetoPaciente.id = paciente.id
         const pacienteActualizados = pacientes.map(pacienteState =>  pacienteState.id === paciente.id ? ObjetoPaciente : pacienteState)
         setPacientes(pacienteActualizados);
+        setPaciente({})
       } else {
+        console.log("adios")
         ObjetoPaciente.id = generarId()
         setPacientes([...pacientes, ObjetoPaciente]);
       }    
+      setNombre('');
+      sePropietario('');
+      setMail('');
+      setAlta('');
+      setNumero('');
+      setsintomas('');
     }
   
     
@@ -111,7 +114,7 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
 
           </textarea>
         </div>
-        <input type='submit' className="bg-indigo-600 p-3 w-full text-white font-bold uppercase hover:bg-indigo-800 cursor-pointer transition-all rounded" value={ paciente.id ? 'Editar Paciente' : 'Agregar Paciente' }></input>
+        <input type='submit' className="bg-indigo-600 p-3 w-full text-white font-bold uppercase hover:bg-indigo-800 cursor-pointer transition-all rounded" value={paciente.id ? 'Editar Paciente': 'Agregar Paciente'}></input>
       </form>
     </div>
   )
