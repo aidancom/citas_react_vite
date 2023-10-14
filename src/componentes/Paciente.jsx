@@ -2,7 +2,7 @@
 const Paciente = ({paciente, setPaciente, eliminarPaciente}) => {
   return (
     
-    <div className="bg-white shadow-md mr-5 px-5 py-5 rounded mb-5">
+    <div className="bg-white shadow-md mr-5  ml-5 px-5 py-5 rounded mb-5">
     <p className="font-bold mb-3 text-gray-700 uppercase">Nombre: {''}
       <span className="font-normal normal-case">{paciente.nombre}</span>
     </p>

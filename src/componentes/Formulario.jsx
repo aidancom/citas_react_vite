@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Error from './Error';
 import Acierto from './Acierto';
 
-const formulario = ({pacientes, setPacientes, paciente}) => {
+const Formulario = ({pacientes, setPacientes, paciente}) => {
   const [nombre, setNombre] = useState(''); 
   const [propietario, sePropietario] = useState(''); 
   const [mail, setMail] = useState(''); 
@@ -36,38 +36,35 @@ const formulario = ({pacientes, setPacientes, paciente}) => {
     } else {
       setError(false);
       setEnviado(true);
-   
-      
       setNombre('');
       sePropietario('');
       setMail('');
       setAlta('');
       setNumero('');
       setsintomas('');
-      
+      const ObjetoPaciente = {
+        nombre,
+        propietario,
+        mail,
+        numero,
+        alta,
+        sintomas,
+      }
+      if (paciente.id) {
+        ObjetoPaciente.id = paciente.id
+        const pacienteActualizados = pacientes.map(pacienteState =>  pacienteState.id === paciente.id ? ObjetoPaciente : pacienteState)
+        setPacientes(pacienteActualizados);
+      } else {
+        ObjetoPaciente.id = generarId()
+        setPacientes([...pacientes, ObjetoPaciente]);
+      }    
     }
-    const ObjetoPaciente = {
-      nombre,
-      propietario,
-      mail,
-      numero,
-      alta,
-      sintomas,
-    }
-    if (paciente.id) {
-      ObjetoPaciente.id = paciente.id
-      
-      const pacienteActualizados = pacientes.map(pacienteState =>  pacienteState.id === paciente.id ? ObjetoPaciente : pacienteState)
-      setPacientes(pacienteActualizados);
-    } else {
-      ObjetoPaciente.id = generarId()
-      setPacientes([...pacientes, ObjetoPaciente]);
-    }
+  
     
   };
 
   return (
-    <div className="md:w-1/2 lg:w-2/5 mr-5">
+    <div className="md:w-1/2 lg:w-2/5 mr-5 ml-5">
       <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
       <p className="text-lg mt-5 text-center mb-10">
         Añade pacientes y {''}
@@ -114,10 +111,10 @@ const formulario = ({pacientes, setPacientes, paciente}) => {
 
           </textarea>
         </div>
-        <input type='submit' className="bg-indigo-600 p-3 w-full text-white font-bold uppercase hover:bg-indigo-800 cursor-pointer transition-all rounded" value={paciente.id ? 'Editar Paciente': 'Agregar Paciente'}></input>
+        <input type='submit' className="bg-indigo-600 p-3 w-full text-white font-bold uppercase hover:bg-indigo-800 cursor-pointer transition-all rounded" value={ paciente.id ? 'Editar Paciente' : 'Agregar Paciente' }></input>
       </form>
     </div>
   )
 }
 
-export default formulario
+export default Formulario

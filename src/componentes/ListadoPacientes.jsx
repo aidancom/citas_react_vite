@@ -6,7 +6,7 @@ const ListadoPacientes = ({pacientes, setPaciente, eliminarPaciente}) => {
 
 
   return (
-    <div className="w-1/2 lg:w-50 md:h-screen overflow-y-scroll">
+    <div className="md:w-1/2 lg:w-50 md:h-screen overflow-y-scroll">
         <h2 className="font-black 5 text-center text-3xl">Listado de Pacientes</h2>
       {pacientes && pacientes.length ? (
         <>
